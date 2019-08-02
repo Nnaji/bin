@@ -1,0 +1,301 @@
+set nocompatible              " be iMproved, required
+set number                    " set line number
+set matchpairs+==:;
+set hlsearch
+set ignorecase
+set smartcase
+set relativenumber
+
+highlight Cursor guifg=white guibg=#808080
+
+" set cursorline
+" set background=dark
+" For Devicons
+set encoding=UTF-8
+
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin('~/.vim/bundle/')
+" alternatively, pass a path where Vundle should install plugins
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+Plugin 'davidhalter/jedi-vim'
+
+" All my installed Plugins
+
+" ALE supports a wide variety of languages and tools. See the full list in the Supported Languages and Tools page.
+Plugin 'w0rp/ale'
+
+" The NERDTree is a file system explorer for the Vim editor.
+Plugin 'scrooloose/nerdtree'
+
+" Ranger integration in vim and neovim
+" Plugin 'francoiscabrol/ranger.vim'
+
+" Statusline with comprehensive information about current vim buffer.
+Plugin 'avakarev/vim-watchdog'
+
+" VIM one stop shop for vim colorschemes.
+Plugin 'flazz/vim-colorschemes'
+
+" symbols: Adds file type glyphs/icons to popular Vim plugins: NERDTree, vim-airline, Powerline, Unite, vim-startify and more
+Plugin 'ryanoasis/vim-devicons'
+
+" Lean & mean status/tabline for vim that's light as air.
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" Syntastic is a syntax checking plugin for Vim created by Martin Grenfell.
+Plugin 'vim-syntastic/syntastic'
+
+"A vim plug-in which provides support for expanding abbreviations similar to emmet
+Plugin 'mattn/emmet-vim'
+
+" Syntax file and other settings for TypeScript
+Plugin 'leafgarland/typescript-vim'
+
+" YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim.
+Plugin 'valloric/youcompleteme'
+
+" This plugin provides the following mappings which allow you to move between Vim panes and tmux splits seamlessly.
+Plugin 'christoomey/vim-tmux-navigator'
+
+" Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
+Plugin 'kien/ctrlp.vim'
+
+" SyntaxComplete.vim is a plugin which uses the new Vim7 OMNI completion features (intellisense code completion).
+" Plugin 'SyntaxComplete'
+
+
+" A vim plugin wrapper for prettier, pre-configured with custom default prettier settings.
+Plugin 'prettier/vim-prettier'
+
+let g:prettier#autoformat = 1
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+
+" Plugin 'mitermayer/vim-prettier'
+
+" Improved PHP omni-completion.
+Plugin 'shawncplus/phpcomplete.vim'
+
+" snipMate & UltiSnip Snippets
+Plugin 'honza/vim-snippets'
+
+" This is a VIM plugin for using JSON in a way that I like. It is a fork of vim-scripts/vim-json-bundle, which is a fork of leshill/vim-json.
+Plugin 'jakar/vim-json'
+
+" Surround.vim is all about \"surroundings\": parentheses, brackets, quotes, XML tags, and more. The plugin provides mappings to easily delete, change and add such surroundings in pairs.
+Plugin 'tpope/vim-surround'
+
+""""""""""
+" Colorscheme 
+" """""""""""
+Plugin 'felixhummel/setcolors.vim'
+
+" Make the vim background transparent, even if you change the colorscheme
+Plugin 'yuk1h1ra/transparent.vim'
+
+" A theme for Terminal and iTerm that mimics the native One Dark Theme made by the Atom team.j
+Plugin 'nathanbuchar/atom-one-dark-terminal'
+
+" Light and dark vim colorscheme, shamelessly stolen from atom (another excellent text editor).
+Plugin 'rakr/vim-one'
+
+" A dark Vim/Neovim color scheme for the GUI and 16/256/true-color terminals, based on FlatColor, with colors inspired by the excellent One Dark syntax theme for the Atom text editor.
+Plugin 'joshdick/onedark.vim'
+
+" Building a vim version of the default Atom dark color scheme. Using elements of Jellybeans and Solarized to accomplish the task.
+Plugin 'geoffharcourt/one-dark.vim'
+
+" A Theme for the airline vim plugin
+Plugin 'rcabralc/monokai-airline.vim'
+
+" Molokai is a Vim port of the monokai theme for TextMate originally created by Wimer Hazenberg.
+Plugin 'tomasr/molokai'
+
+" Color scheme for Vim, inspired by Visual Studio Code Monokai theme.
+Plugin 'sinetoami/vim-sinmonokai-scheme'
+
+" Custom Monokai color theme
+Plugin 'sickill/vim-monokai'
+
+" Enhanced version of sickill/vim-monokai.
+Plugin 'keeto/vim-keetokai'
+
+" Vim color scheme based on monokai with plugin support. 
+Plugin 'turbio/muble.vim'
+
+" A monokai syntax theme for Atom.
+Plugin 'kevinsawicki/monokai'
+
+" Monokai Pro color scheme for Vim
+Plugin 'erichain/vim-monokai-pro'
+
+" Monokai forever! :tada: Inspired by Sublime Text's interpretation of monokai. 
+Plugin 'patstockwell/vim-monokai-tasty'
+
+" Monokai Soda colorscheme for vim.
+Plugin 'dunckr/vim-monokai-soda'
+
+" Color scheme with clearly defined contrasting colors and a slightly earthy tone.
+Plugin 'roosta/srcery'
+
+" Papaya Theme for Vim
+Plugin 'henrynewcomer/vim-theme-papaya'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+filetype plugin on
+syntax on
+syntax enable
+filetype on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+" Enable completion where available.
+" This setting must be set before ALE is loaded.
+" let g:ale_completion_enabled = 1
+
+" Set this variable to 1 to fix files when you save them.
+" let g:ale_fix_on_save = 1
+
+" Fix files with prettier, and then ESLint.
+let b:ale_fixers = ['prettier', 'eslint']
+
+" For searches
+nnoremap / /\v
+
+" NERDTree Settings 
+let mapleader = ';'
+nnoremap <F4> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Disable the Arrow keys
+nnoremap <up> <Nop>
+nnoremap <left> <Nop>
+nnoremap <right> <Nop>
+nnoremap <down> <Nop>
+inoremap <up> <Nop>
+inoremap <left> <Nop>
+inoremap <right> <Nop>
+inoremap <down> <Nop>
+
+"save my file with control - w 
+nmap <c-w> :w<CR>
+imap <c-w>  <ESC>:w<CR>a
+
+
+imap <leader>" ""<ESC>i
+imap <leader>' ''<ESC>i
+imap <leader>( ()<ESC>i
+imap <leader>{ {}<ESC>i
+imap <leader>[ []<ESC>i
+imap <leader>< <><ESC>i
+
+map <C-a> GVgg
+noremap ds{ F{xf}x
+noremap cs{ F{xf}xi
+
+noremap ds" F"x,x
+noremap cs" F"x,xi
+  
+noremap ds' F'x,x
+noremap cs' F'x,xi
+  
+noremap ds( F(xf)x
+noremap cs( F(xf)xi
+
+inoremap ds( <ESC>F(xf)x
+inoremap cs( <ESC>F(xf)xi
+  
+noremap ds` F`xf`x
+noremap cs` F`xf`xi
+
+noremap ds< F<xf>x
+noremap cs< F<xf>xi
+  
+noremap cu ct_
+
+" Colorscheme settings
+" let g:srcery_transparent_background = 1
+" colorscheme srcery
+" colorscheme monokai-soda
+" let g:papaya_gui_color='blue'
+
+" Airline Settings
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let python_highlight_all = 1
+let g:pymode_python = 'python3'
+" let g:airline_theme='molokai'
+" let g:airline_theme='one'
+" let g:airline_theme='term'
+" let g:airline_theme='srcery'
+let g:NERDTreeHijackNetrw = 0 	"" add this line if you use NERDTree
+" let g:ranger_replace_netrw = 1 	"" open ranger when vim open a directory
+
+" let g:airline = {
+" 		 	\ 'colorscheme': 'srcery',
+" 		 	\ }
+
+" Powerline Settings
+set rtp+=/home/kingsley/.local/lib/python3.6/site-packages/powerline/bindings/vim/
+set laststatus=2
+set t_Co=256
+
+" Syntastic
+" let g:indentLine_color_gui = '@guibg2'
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
+" Encryption section
+set cm=blowfish2
+
+" Templates
+au bufnewfile *.js 0r ~/.vim/templates/js_header.temp
+au bufnewfile *.ts 0r ~/.vim/templates/js_header.temp
+au bufnewfile *.sh 0r ~/.vim/templates/sh_header.temp
+au bufnewfile *.py 0r ~/.vim/templates/py_header.temp
+au bufnewfile *.pl 0r ~/.vim/templates/pl_header.temp
+au bufnewfile *Dockerfile 0r ~/.vim/templates/Dockerfile.temp
+
+
+hi Normal guibg=NONE ctermbg=NONE
