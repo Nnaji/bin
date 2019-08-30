@@ -7,12 +7,14 @@ set smartcase
 set relativenumber
 
 highlight Cursor guifg=white guibg=#808080
+set cursorcolumn
+set cursorline
 
 " set cursorline
 " set background=dark
+
 " For Devicons
 set encoding=UTF-8
-
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -39,7 +41,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'ascenator/L9', {'name': 'newL9'}
 
 Plugin 'davidhalter/jedi-vim'
 
@@ -75,6 +77,15 @@ Plugin 'mattn/emmet-vim'
 
 " Syntax file and other settings for TypeScript
 Plugin 'leafgarland/typescript-vim'
+Plugin 'ianks/vim-tsx'
+
+" Dark powered asynchronous completion framework for neovim/Vim8
+Plugin 'shougo/deoplete.nvim'
+
+" JavaScript bundle for vim, this bundle provides syntax highlighting and improved indentation.
+Plugin 'pangloss/vim-javascript'
+
+" Plugin 'microsoft/typescript'
 
 " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim.
 Plugin 'valloric/youcompleteme'
@@ -88,15 +99,19 @@ Plugin 'kien/ctrlp.vim'
 " SyntaxComplete.vim is a plugin which uses the new Vim7 OMNI completion features (intellisense code completion).
 " Plugin 'SyntaxComplete'
 
-
 " A vim plugin wrapper for prettier, pre-configured with custom default prettier settings.
 Plugin 'prettier/vim-prettier'
 
 let g:prettier#autoformat = 1
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 
+" This is vim-javacomplete2, an omni-completion plugin for Java requiring vim 7.
+Plugin 'artur-shaik/vim-javacomplete2'
 
-" Plugin 'mitermayer/vim-prettier'
+" This is javacomplete, an omni-completion script of JAVA language for vim 7
+" Plugin 'javacomplete'
 
 " Improved PHP omni-completion.
 Plugin 'shawncplus/phpcomplete.vim'
@@ -109,6 +124,9 @@ Plugin 'jakar/vim-json'
 
 " Surround.vim is all about \"surroundings\": parentheses, brackets, quotes, XML tags, and more. The plugin provides mappings to easily delete, change and add such surroundings in pairs.
 Plugin 'tpope/vim-surround'
+
+" Python-mode, a Python IDE for Vim
+Plugin 'klen/python-mode'
 
 """"""""""
 " Colorscheme 
@@ -174,7 +192,9 @@ filetype plugin on
 syntax on
 syntax enable
 filetype on
-"
+set filetype=sh
+
+
 " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -198,7 +218,8 @@ let b:ale_fixers = ['prettier', 'eslint']
 nnoremap / /\v
 
 " NERDTree Settings 
-let mapleader = ';'
+let mapleader = ','
+let NERDTreeShowHidden=1  "  Always show dot files
 nnoremap <F4> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -217,9 +238,9 @@ inoremap <down> <Nop>
 nmap <c-w> :w<CR>
 imap <c-w>  <ESC>:w<CR>a
 
-
 imap <leader>" ""<ESC>i
 imap <leader>' ''<ESC>i
+imap <leader>` ``<ESC>i
 imap <leader>( ()<ESC>i
 imap <leader>{ {}<ESC>i
 imap <leader>[ []<ESC>i
@@ -228,16 +249,28 @@ imap <leader>< <><ESC>i
 map <C-a> GVgg
 noremap ds{ F{xf}x
 noremap cs{ F{xf}xi
+noremap ds} F{xf}x
+noremap cs} F{xf}xi
+
+noremap ds( F(xf)x
+noremap cs( F(xf)xi
+noremap ds) F(xf)x
+noremap cs) F(xf)xi
+
+noremap ds< F<xf>x
+noremap cs< F<xf>xi
+noremap ds> F<xf>x
+noremap cs> F<xf>xi
 
 noremap ds" F"x,x
 noremap cs" F"x,xi
   
 noremap ds' F'x,x
 noremap cs' F'x,xi
-  
-noremap ds( F(xf)x
-noremap cs( F(xf)xi
 
+noremap ds` F`x,x
+noremap cs` F`x,xi
+  
 inoremap ds( <ESC>F(xf)x
 inoremap cs( <ESC>F(xf)xi
   
@@ -289,13 +322,41 @@ set t_Co=256
 " Encryption section
 set cm=blowfish2
 
-" Templates
-au bufnewfile *.js 0r ~/.vim/templates/js_header.temp
-au bufnewfile *.ts 0r ~/.vim/templates/js_header.temp
-au bufnewfile *.sh 0r ~/.vim/templates/sh_header.temp
-au bufnewfile *.py 0r ~/.vim/templates/py_header.temp
-au bufnewfile *.pl 0r ~/.vim/templates/pl_header.temp
-au bufnewfile *Dockerfile 0r ~/.vim/templates/Dockerfile.temp
+
+" Templates section
+
+autocmd bufnewfile *.ts 0r ~/.vim/templates/js_header.temp
+autocmd bufnewfile *.ts exe "1," . 4 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d.%m.%Y")
+autocmd bufnewfile *.sh 0r ~/.vim/templates/sh_header.temp
+autocmd bufnewfile *.sh exe "1," . 5 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d.%m.%Y")
+autocmd bufnewfile *.py 0r ~/.vim/templates/py_header.temp
+autocmd bufnewfile *.py exe "1," . 5 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d.%m.%Y")
+autocmd bufnewfile *.pl 0r ~/.vim/templates/pl_header.temp
+autocmd bufnewfile *.pl exe "1," . 5 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d.%m.%Y")
+autocmd bufnewfile *Dockerfile 0r ~/.vim/templates/Dockerfile.temp
+autocmd bufnewfile *Dockerfile exe "1," . 3 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d.%m.%Y")
+
+" AutoGroup Section
+augroup javaScriptCmds
+	autocmd bufnewfile *.js 0r ~/.vim/templates/js_header.temp
+	autocmd  bufnewfile *.js exe "1," . 4 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d.%m.%Y")
+augroup END 
+
+" autocmd bufnewfile *.js 0r ~/.vim/templates/js_header.temp
+" autocmd bufnewfile *.ts 0r ~/.vim/templates/js_header.temp
+" autocmd bufnewfile *.sh 0r ~/.vim/templates/sh_header.temp
+" autocmd bufnewfile *.py 0r ~/.vim/templates/py_header.temp
+" autocmd bufnewfile *.pl 0r ~/.vim/templates/pl_header.temp
+" autocmd bufnewfile *Dockerfile 0r ~/.vim/templates/Dockerfile.temp
+ 
+" Auto Commenting section
+"
+autocmd FileType html nnoremap <leader>c I<!--<ESC>A--><ESC>
+autocmd FileType typescript  nnoremap <leader>c I// <ESC>
+autocmd FileType javascript nnoremap <leader>c I// <ESC>
+autocmd FileType python nnoremap <leader>c I# <ESC>
+autocmd FileType sh nnoremap <leader>c I# <ESC>
+autocmd FileType perl nnoremap <leader>c I# <ESC>
 
 
 hi Normal guibg=NONE ctermbg=NONE
