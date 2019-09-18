@@ -8,6 +8,10 @@
 	CLI="CLI"
 	IDE="IDE"  
 
+# ====================================================================================================
+# Bash function ctsessions creates a tmux session in the current directory and appends
+# the directory name to WORK variable to create a session new session name to avoid duplicate sessions
+# ====================================================================================================
 function ctsessions()
 {
 	if [[ "$#" -eq 1 ]]; then
